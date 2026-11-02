@@ -65,8 +65,8 @@ let wi = 0;
 
 // Hero: bubbles and stars drifting upwards
 if (!calm) {
-  const hero = document.querySelector('.hero');
-  for (let i = 0; i < 14; i++) {
+  const hero = document.querySelector('.hero, .page-hero');
+  for (let i = 0; i < (hero.classList.contains('hero') ? 14 : 8); i++) {
     const b = document.createElement('span');
     const kind = Math.random();
     b.className = 'bubble' + (kind < .3 ? ' bubble--star' : kind < .55 ? ' bubble--ring' : '');
@@ -99,13 +99,15 @@ document.querySelectorAll('.stats__nums b, .team__stat b').forEach(b => countIO.
 // Footer wordmark: letters wave on hover
 const mark = document.querySelector('.footer__mark');
 const word = mark.lastChild;
-word.replaceWith(...[...word.textContent].map((ch, i) => {
+const letters = document.createElement('span');
+letters.append(...[...word.textContent].map((ch, i) => {
   const s = document.createElement('span');
   s.className = 'l';
   s.style.setProperty('--i', i);
   s.textContent = ch;
   return s;
 }));
+word.replaceWith(letters);
 
 // Confetti burst wherever you click
 if (!calm) {
@@ -147,7 +149,7 @@ rooms.forEach(room => {
 
 // Duplicate the photo strip so the scroll loops seamlessly
 const track = document.querySelector('.strip__track');
-track.innerHTML += track.innerHTML.replace(/alt="[^"]*"/g, 'alt="" aria-hidden="true"');
+if (track) track.innerHTML += track.innerHTML.replace(/alt="[^"]*"/g, 'alt="" aria-hidden="true"');
 
 // Booking form: chips + WhatsApp hand-off
 const form = document.getElementById('bookForm');
@@ -156,7 +158,8 @@ const msg = document.getElementById('formMsg');
 const picks = { concern: [], age: [], time: [] };
 const multi = { concern: true };
 
-form.querySelectorAll('.chips').forEach(group => {
+// Only the home page has the form
+form?.querySelectorAll('.chips').forEach(group => {
   const name = group.dataset.name;
   group.addEventListener('click', e => {
     const chip = e.target.closest('.chip');
@@ -168,7 +171,7 @@ form.querySelectorAll('.chips').forEach(group => {
   });
 });
 
-form.addEventListener('submit', e => {
+form?.addEventListener('submit', e => {
   e.preventDefault();
   const required = [...form.querySelectorAll('[required]')];
   required.forEach(i => i.classList.toggle('is-bad', !i.value.trim()));
