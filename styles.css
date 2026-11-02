@@ -235,8 +235,11 @@ p { margin: 0; }
 
 /* Cards */
 .card { background: var(--card); border-radius: var(--r); box-shadow: var(--shadow); }
-.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; align-items: start; }
-.card--svc { padding: 14px 14px 28px; transition: transform .3s; }
+.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; align-items: stretch; }
+.card--svc { padding: 14px 14px 28px; transition: transform .3s; display: flex; flex-direction: column; }
+.card--svc > .pill { align-self: flex-start; }
+.card--svc .checks { margin-bottom: 22px; }
+.card--svc .card__note { margin-top: auto; }
 .card--svc:hover { transform: translateY(-6px) rotate(-.4deg); }
 .card--svc > *:not(.card__art) { margin-inline: 14px; }
 .card__art {
