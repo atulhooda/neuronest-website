@@ -20,6 +20,8 @@ const io = new IntersectionObserver(entries => {
     if (e.isIntersecting) {
       e.target.classList.add('is-in');
       io.unobserve(e.target);
+      // Drop the stagger delay once shown so hovers react instantly
+      setTimeout(() => e.target.style.removeProperty('--d'), 1400);
     }
   });
 }, { threshold: 0.12 });
@@ -27,6 +29,101 @@ document.querySelectorAll('.section .wrap > *, .stats').forEach(el => {
   el.classList.add('reveal');
   io.observe(el);
 });
+// Items inside grids and lists pop in one after another
+document.querySelectorAll('.cards, .team__grid, .timeline, .kit__list, .faq__list').forEach(group => {
+  [...group.children].forEach((el, i) => {
+    el.classList.add('reveal');
+    el.style.setProperty('--d', `${i * 120}ms`);
+    io.observe(el);
+  });
+});
+
+const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const colors = ['#d9502a', '#f2b33d', '#2f8f7a', '#3f7fd0', '#e98bb0'];
+const pick = arr => arr[Math.floor(Math.random() * arr.length)];
+
+// Hero headline: split into words that pop in one by one
+const h1 = document.querySelector('.display');
+let wi = 0;
+[...h1.childNodes].forEach(node => {
+  if (node.nodeType === 3) {
+    const frag = document.createDocumentFragment();
+    node.textContent.split(/(\s+)/).forEach(part => {
+      if (!part.trim()) return frag.append(part);
+      const s = document.createElement('span');
+      s.className = 'w';
+      s.style.setProperty('--i', wi++);
+      s.textContent = part;
+      frag.append(s);
+    });
+    node.replaceWith(frag);
+  } else if (node.classList?.contains('accent')) {
+    node.classList.add('w');
+    node.style.setProperty('--i', wi++);
+  }
+});
+
+// Hero: bubbles and stars drifting upwards
+if (!calm) {
+  const hero = document.querySelector('.hero');
+  for (let i = 0; i < 14; i++) {
+    const b = document.createElement('span');
+    const kind = Math.random();
+    b.className = 'bubble' + (kind < .3 ? ' bubble--star' : kind < .55 ? ' bubble--ring' : '');
+    b.setAttribute('aria-hidden', 'true');
+    b.style.cssText = `left:${Math.random() * 100}%;--s:${10 + Math.random() * 26}px;--c:${pick(colors)};` +
+      `--t:${12 + Math.random() * 12}s;--delay:${-Math.random() * 20}s;--sway:${(Math.random() - .5) * 120}px;--o:${.35 + Math.random() * .35}`;
+    hero.append(b);
+  }
+}
+
+// Numbers count up when they scroll into view
+const countIO = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    countIO.unobserve(e.target);
+    const num = e.target.firstChild;
+    const end = parseInt(num.textContent, 10);
+    if (calm || !end) return;
+    const t0 = performance.now();
+    const tick = now => {
+      const p = Math.min((now - t0) / 1200, 1);
+      num.textContent = Math.round(end * (1 - Math.pow(1 - p, 3)));
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  });
+}, { threshold: .6 });
+document.querySelectorAll('.stats__nums b, .team__stat b').forEach(b => countIO.observe(b));
+
+// Footer wordmark: letters wave on hover
+const mark = document.querySelector('.footer__mark');
+const word = mark.lastChild;
+word.replaceWith(...[...word.textContent].map((ch, i) => {
+  const s = document.createElement('span');
+  s.className = 'l';
+  s.style.setProperty('--i', i);
+  s.textContent = ch;
+  return s;
+}));
+
+// Confetti burst wherever you click
+if (!calm) {
+  addEventListener('click', e => {
+    if (e.target.closest('input, textarea')) return;
+    for (let i = 0; i < 12; i++) {
+      const c = document.createElement('span');
+      const angle = (Math.PI * 2 * i) / 12 + Math.random() * .4;
+      const dist = 40 + Math.random() * 50;
+      c.className = 'confetti';
+      c.style.cssText = `left:${e.clientX}px;top:${e.clientY}px;background:${pick(colors)};` +
+        `--x:${Math.cos(angle) * dist}px;--y:${Math.sin(angle) * dist}px;--r:${Math.random() * 540}deg;` +
+        (Math.random() < .4 ? 'border-radius:50%;' : '');
+      document.body.append(c);
+      c.addEventListener('animationend', () => c.remove());
+    }
+  });
+}
 
 // Clinic rooms: swap the photo when a room is picked
 const roomImg = document.getElementById('roomImg');
