@@ -12,7 +12,7 @@ Then open http://localhost:5173. Client-supplied content and open questions live
 
 ## Therapy pages
 
-The 15 pages in `services/` are generated. Edit the content in `build.py`, then run:
+The therapies overview (`services/index.html`) and the 15 therapy pages in `services/` are generated. Edit the content in `build.py`, then run:
 
 ```
 python3 build.py

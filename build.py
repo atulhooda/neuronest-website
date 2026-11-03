@@ -343,7 +343,7 @@ NAV = """<header class="nav" id="top">
   <div class="wrap nav__inner">
     <a href="../index.html" class="logo" aria-label="NeuroNest home"><img class="logo__mark" src="../assets/images/logo-emblem.png" alt="">NeuroNest</a>
     <nav class="nav__links" aria-label="Main">
-      <a href="../index.html#services" aria-current="page">Therapies</a>
+      <a href="index.html" aria-current="page">Therapies</a>
       <a href="../index.html#clinic">The clinic</a>
       <a href="../index.html#visit-steps">First visit</a>
       <a href="../index.html#team">Team</a>
@@ -356,7 +356,7 @@ NAV = """<header class="nav" id="top">
     </div>
   </div>
   <nav class="nav__mobile" aria-label="Mobile">
-    <a href="../index.html#services">Therapies</a>
+    <a href="index.html">Therapies</a>
     <a href="../index.html#clinic">The clinic</a>
     <a href="../index.html#visit-steps">First visit</a>
     <a href="../index.html#team">Team</a>
@@ -435,34 +435,11 @@ def page(s):
           </div>
         </div>"""
 
-    groups = "\n".join(
-        f'        <a href="{BY_SLUG[g]["slug"]}.html">{e(BY_SLUG[g]["group"])}</a>'
-        for g in ["speech-language-therapy", "audiological-evaluation", "physiotherapy"])
-
-    return f"""<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{e(name)} in Kharadi, Pune | NeuroNest</title>
-  <meta name="description" content="{e(s['tagline'])} {e(name)} at NeuroNest Pediatric Rehabilitation Centre, Kharadi, Pune.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=DM+Mono:wght@400;500&family=Outfit:wght@300..600&display=swap" rel="stylesheet">
-  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="../styles.css">
-</head>
-<body>
-
-{NAV}
-
-<main>
-
-  <section class="page-hero">
+    main = f"""  <section class="page-hero">
     <svg class="squiggle sq-1" viewBox="0 0 220 160" aria-hidden="true"><path d="M60 120c-30-20-40-70 10-95 50-25 130-10 135 35 5 45-80 70-130 55-25-8-30-35-20-50"/></svg>
     <div class="wrap page-hero__grid">
       <div>
-        <p class="crumbs mono"><a href="../index.html">Home</a> / <a href="../index.html#services">Therapies</a> / <span>{e(name)}</span></p>
+        <p class="crumbs mono"><a href="../index.html">Home</a> / <a href="index.html">Therapies</a> / <span>{e(name)}</span></p>
         <p class="eyebrow">{e(s['group'])}</p>
         <h1 class="display page-title">{e(name)}</h1>
         <svg class="page-title__line" viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true"><path d="M4 14c50-10 110-12 170-6s90 4 122-4"/></svg>
@@ -543,7 +520,43 @@ def page(s):
         </div>
       </div>
     </div>
-  </section>
+  </section>"""
+    return shell(f"{name} in Kharadi, Pune | NeuroNest",
+                 f"{s['tagline']} {name} at NeuroNest Pediatric Rehabilitation Centre, Kharadi, Pune.", main)
+
+
+GROUPS = [
+    ("speech", "Speech & swallowing", "First words, clearer words, safe swallowing.", "speech",
+     '<path d="M20 40c0-16 18-26 40-26s40 10 40 26-18 26-40 26c-6 0-12-1-17-2L26 72l4-12c-6-5-10-12-10-20z"/><path class="thin" d="M44 40h0M60 40h0M76 40h0"/>'),
+    ("hearing", "Hearing & learning", "Hearing checked on site, classroom skills built up.", "hear",
+     '<path d="M48 62c0 8 14 10 18 0 4-10 18-16 18-32 0-14-11-22-24-22S36 18 36 30"/><path d="M52 32c0-6 4-10 9-10s9 4 9 10-6 8-8 14"/><path class="thin" d="M92 22c6 6 6 22 0 28M100 14c11 11 11 33 0 44"/>'),
+    ("movement", "Movement & behaviour", "Bodies and senses that work together.", "move",
+     '<circle cx="60" cy="16" r="8"/><path d="M60 26v24M60 32 40 22M60 32l20-10M60 50 46 72M60 50l14 22"/><path class="thin" d="M18 70h20M84 70h20"/>'),
+]
+
+
+def shell(title, desc, main):
+    groups = "\n".join(f'        <a href="index.html#{gid}">{e(gname)}</a>' for gid, gname, *_ in GROUPS)
+    return f"""<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{e(title)}</title>
+  <meta name="description" content="{e(desc)}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=DM+Mono:wght@400;500&family=Outfit:wght@300..600&display=swap" rel="stylesheet">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+{NAV}
+
+<main>
+
+{main}
 
 </main>
 
@@ -555,9 +568,78 @@ def page(s):
 """
 
 
+def overview():
+    sections = []
+    for n, (gid, gname, gsub, art, icon) in enumerate(GROUPS):
+        items = [s for s in SERVICES if s["group"] == gname]
+        cards = "\n".join(
+            f"""        <a class="card rel" href="{s['slug']}.html">
+          <span class="mono">{e(s['who'])}</span>
+          <h3>{e(s['name'])}</h3>
+          <p>{e(s['tagline'])}</p>
+          <span class="rel__arrow" aria-hidden="true">→</span>
+        </a>""" for s in items)
+        sections.append(f"""  <section class="section section--group{' section--tint' if n % 2 == 0 else ''}" id="{gid}">
+    <div class="wrap">
+      <div class="svc-grid">
+        <div class="group-card art--{art}">
+          <svg class="group-card__icon" viewBox="0 0 120 80" aria-hidden="true">{icon}</svg>
+          <div>
+            <p class="mono">0{n + 1} · {len(items)} therapies</p>
+            <h2>{e(gname)}</h2>
+            <p>{e(gsub)}</p>
+          </div>
+        </div>
+{cards}
+      </div>
+    </div>
+  </section>""")
+    jump = "\n".join(f'          <a class="chip" href="#{gid}">{e(gname)}</a>' for gid, gname, *_ in GROUPS)
+
+    main = f"""  <section class="page-hero">
+    <svg class="squiggle sq-1" viewBox="0 0 220 160" aria-hidden="true"><path d="M60 120c-30-20-40-70 10-95 50-25 130-10 135 35 5 45-80 70-130 55-25-8-30-35-20-50"/></svg>
+    <div class="wrap page-hero__grid">
+      <div>
+        <p class="crumbs mono"><a href="../index.html">Home</a> / <span>Therapies</span></p>
+        <p class="eyebrow">Our therapies</p>
+        <h1 class="display page-title">Every therapy, one <em class="accent">roof.</em></h1>
+        <svg class="page-title__line" viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true"><path d="M4 14c50-10 110-12 170-6s90 4 122-4"/></svg>
+        <p class="lede">Children rarely need just one kind of help. Speech, movement, attention and hearing are tangled together, so the people who treat them work in the same building. Pick a therapy to read more.</p>
+        <div class="jump">
+{jump}
+        </div>
+      </div>
+      <figure class="card page-photo">
+        <img src="../assets/images/clinic-therapy-gym.jpg" alt="{e(PHOTOS['therapy-gym'])}">
+        <span class="page-photo__sticker">{len(SERVICES)} therapies</span>
+      </figure>
+    </div>
+  </section>
+
+{chr(10).join(sections)}
+
+  <section class="section">
+    <div class="wrap">
+      <div class="cta-band">
+        <div>
+          <h2 class="h2">Not sure where<br>to <span class="accent">start?</span></h2>
+          <p>You don't need to know which therapy your child needs. Tell us what you have noticed and we'll take it from there.</p>
+        </div>
+        <div class="hero__actions">
+          <a class="btn btn--sun" href="../index.html#book">Book a visit <span aria-hidden="true">→</span></a>
+          <a class="btn btn--ghost" href="tel:+918180095783">Call us</a>
+        </div>
+      </div>
+    </div>
+  </section>"""
+    return shell("Therapies in Kharadi, Pune | NeuroNest",
+                 "Speech, swallowing, hearing, physiotherapy, occupational therapy and more: all 15 therapies at NeuroNest Pediatric Rehabilitation Centre, Kharadi, Pune.", main)
+
+
 if __name__ == "__main__":
     OUT.mkdir(exist_ok=True)
     for s in SERVICES:
         assert all(r in BY_SLUG for r in s["related"]), s["slug"]
         (OUT / f"{s['slug']}.html").write_text(page(s))
-    print(f"Wrote {len(SERVICES)} pages to {OUT}")
+    (OUT / "index.html").write_text(overview())
+    print(f"Wrote {len(SERVICES)} therapy pages + overview to {OUT}")
