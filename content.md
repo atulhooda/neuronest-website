@@ -12,7 +12,7 @@
 - Logo: "NEURO NEST" in teal-green serif, "PEDIATRIC REHABILITATION CENTRE" arched around a red circle; inside, a square tile with a hand holding a child/figure, plus leaves.
 - Colours seen: teal/green (wordmark), deep red / maroon (circle), cream/beige background, warm orange (hand), purple (services-card text).
 - Illustration style: playful cartoon kids playing (on the WhatsApp profile image).
-- Files: `assets/images/logo-whatsapp-profile.png` (screenshot only; need a clean logo file), `assets/images/services-card.png`
+- Files: `assets/images/logo-full.jpg` (official poster logo from client), `assets/images/logo-emblem.png` (round emblem cropped from it, used in nav/footer), `favicon.svg`, `assets/images/services-card.png`
 
 ## Services
 Speech & communication
@@ -65,6 +65,5 @@ Read off the blurry name board in the entrance corridor (confirm with the client
 
 ## Still missing (ask the client)
 - Confirm doctor roles, Dr. Poonam's surname, and Dr. vs Mr. for Qumail
-- High-resolution logo (PNG/SVG)
 - Clinic opening hours, email, Instagram / Google Maps link
 - Clinic interior photos, testimonials, founding year
