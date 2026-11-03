@@ -2,8 +2,9 @@
 
 ## Business
 - **Name:** NeuroNest Pediatric Rehabilitation Centre (spelled "Center" on the card, "Centre" on the logo)
-- **Phone / WhatsApp:** +91 81800 95783
-- **Phone 2 (on the clinic window):** +91 95116 29449
+- **Clinic number / WhatsApp:** +91 81800 95783
+- **Doctor number:** +91 91727 07626
+- (Old number on the clinic window, no longer used on the site: +91 95116 29449)
 - **Email (on the clinic window):** neuronestprc@gmail.com
 - **Address:** Vasundhara Banglow, 3rd Floor, Behind Texas Towers, Zensar IT Park Road, Kharadi, Pune 411014
 

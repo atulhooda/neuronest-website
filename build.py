@@ -373,7 +373,8 @@ FOOTER = """<footer class="footer" id="contact">
       <p class="footer__tag">Pediatric Rehabilitation Centre.<br>Speech, hearing, movement and learning, under one roof.</p>
       <dl class="footer__contact">
         <div><dt class="mono">Visit</dt><dd><a href="https://www.google.com/maps/search/?api=1&query=Vasundhara+Banglow+Behind+Texas+Towers+Zensar+IT+Park+Road+Kharadi+Pune+411014" target="_blank" rel="noopener">Vasundhara Banglow, 3rd Floor,<br>Behind Texas Towers, Zensar IT Park Rd,<br>Kharadi, Pune 411014</a></dd></div>
-        <div><dt class="mono">Call</dt><dd><a href="tel:+918180095783">+91 81800 95783</a><br><a href="tel:+919511629449">+91 95116 29449</a></dd></div>
+        <div><dt class="mono">Clinic</dt><dd><a href="tel:+918180095783">+91 81800 95783</a></dd></div>
+        <div><dt class="mono">Doctor</dt><dd><a href="tel:+919172707626">+91 91727 07626</a></dd></div>
         <div><dt class="mono">Email</dt><dd><a href="mailto:neuronestprc@gmail.com">neuronestprc@gmail.com</a></dd></div>
       </dl>
       <div class="footer__col">
