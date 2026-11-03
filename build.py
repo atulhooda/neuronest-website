@@ -10,7 +10,7 @@ OUT = Path(__file__).parent / "services"
 
 THERAPISTS = {
     "qumail": {
-        "name": "Dr. Qumail Shaikh",
+        "name": "Mr. Qumail Shaikh",
         "role": "Speech-language pathologist & audiologist · BASLP, MSc SLP",
         "years": "8 years",
         "img": "dr-qumail-shaikh.png",

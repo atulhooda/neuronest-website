@@ -45,11 +45,11 @@ Development & rehab
 | Name | Experience | Photo |
 |---|---|---|
 | Dr. Poonam | 6 years | `assets/images/dr-poonam.png` (white coat, in clinic) |
-| Dr. Qumail Shaikh | 8 years | `assets/images/dr-qumail-shaikh.png` (suit, at podium) |
+| Mr. Qumail Shaikh | 8 years | `assets/images/dr-qumail-shaikh.png` (suit, at podium) |
 
 Read off the blurry name board in the entrance corridor (confirm with the client):
 - "Dr. Poonam S…" (surname unclear, possibly Sonawane), likely physiotherapist. Her photo is in a physio room.
-- "Mr. Qumail Shaikh, BASLP, MSc SLP": speech-language pathologist and audiologist. The board says "Mr.", but the client wrote "Dr".
+- "Mr. Qumail Shaikh, BASLP, MSc SLP": speech-language pathologist and audiologist. Confirmed by client: use "Mr.", not "Dr." ("Dr" is not an official title for speech therapists).
 - The board also lists "Pure Tone Audiometry" as a service.
 
 ## Clinic photos (`assets/images/clinic-*.jpg`)
@@ -64,6 +64,6 @@ Read off the blurry name board in the entrance corridor (confirm with the client
 - room-mat: room with mattress (not used)
 
 ## Still missing (ask the client)
-- Confirm doctor roles, Dr. Poonam's surname, and Dr. vs Mr. for Qumail
+- Confirm doctor roles and Dr. Poonam's surname
 - Clinic opening hours, email, Instagram / Google Maps link
 - Clinic interior photos, testimonials, founding year
